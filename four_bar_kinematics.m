@@ -1,16 +1,22 @@
+% Adapted from provided code from Dr. Yang 
+% Machine Dynamics - Memorial University
+
 % This code is to analyze kinematics of four bar linkage:
 % Method: Newton-Raphson
 global r1 r2 r3 r4
 global theta2inst
+
 % Constants
 r1 = 5.5;r2 =2.0; r3 = 6.0; r4 = 3.0; % length of the four bars
 n=361; % number of increments
+
 %knowns for links
 omega2=50; % rad/s
 alph2=0; % angular acceleration
 T2= 2*pi/omega2; % period of bar 2
 t = (linspace(0,T2,n))'; % discritize time
 theta2=omega2*t;
+
 %initialize omega3 and 4
 omega3=zeros(n,1);omega4=zeros(n,1); % anular speed of bar 3 and 4
 alph3=zeros(n,1);alph4=zeros(n,1); % anular acceleration of bar 3 and 4
@@ -51,6 +57,7 @@ for i1=1:n
     theta4(i1) = x(2); % in rad
 end
 
+
 % velocity analysis: P273
 for i1=1:n
     A1=[-r3*sin(theta3(i1)), r4*sin(theta4(i1));r3*cos(theta3(i1)), -r4*cos(theta4(i1))];
@@ -58,6 +65,7 @@ for i1=1:n
     xx=A1\b1;
     omega3(i1)=xx(1);omega4(i1)=xx(2);
 end
+
 
 % acceleration analysis :P310-311
 for i1=1:n
@@ -67,6 +75,7 @@ for i1=1:n
     xx=A1\b1;
     alph3(i1)=xx(1);alph4(i1)=xx(2);
 end
+
 
 % Plot for position
 figure(1)
@@ -84,6 +93,7 @@ xlabel('theta2 [rad]');
 ylabel('angular speed ratio');
 legend('omega3/omega2','omega4/omega2');
 grid on;
+
 % Plot for acceleration
 figure(3)
 plot(theta2,alph3,theta2,alph4);
@@ -92,6 +102,8 @@ ylabel('alph3 (4) [rad/s^2]');
 legend('alph3','alph4');
 grid on;
 save fourbardate n t r1 r2 r3 r4 omega2 omega3 omega4 alph2 alph3 alph4 theta2 theta3 theta4
+
+
 
 function f = constraints(x)
 % Evaluate the constraints
@@ -103,6 +115,8 @@ f1 = r2*cos(theta2inst) + r3*cos(theta3) - r4*cos(theta4) - r1;
 f2 = r2*sin(theta2inst) + r3*sin(theta3) - r4*sin(theta4);
 f = [f1 f2]';
 end
+
+
 
 function D = jacobian(x)
 % Evaluate the Jacobian

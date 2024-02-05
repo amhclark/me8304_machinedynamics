@@ -2,19 +2,23 @@
 % based on the drawing on p539
 clear;
 load scdate
+
 % CGs in local frame
 rG2=r2/2; %bar 2
 rG3=r3/2; %bar 3
 miu=0.2; %friction coefficient
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % external load for bar 3
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % external load for bar 4
 FP4=0*exp(-45*pi/180*1j); %force on slider;
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% masses and moment inertia of all bars
 m2=2; m3=5;m4=10; %masses
 I2=0.167; I3=0.817; %moment inertia of bar 2 and 3
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % X=[F12x F12y F32x F32y F43x F43y F14y t12]
 A=zeros(8,8);b=zeros(8,1);
@@ -32,9 +36,10 @@ A(5,4)=-1;A(5,6)=1;
 A(7,5)=-1;
 A(8,6)=-1;A(8,7)=1;
 JJ=2; % the jjth configuration
+
+
 for i1=1:n
     % acceleration of CG points
-    
     aG2=rG2*alph2*(1j)*exp(theta2(i1)*1j)-rG2*omega2^2*exp(theta2(i1)*1j); % acceleration o
     aG4=r1ddot(JJ,i1); % acceleration of cG4
     aB=r2*alph2*(1j)*exp(theta2(i1)*1j)...
@@ -57,13 +62,16 @@ for i1=1:n
     b(6)=I3*alph3(JJ,i1);
     b(7)=m4*real(aG4)-real(FP4); b(8)=-imag(FP4);
     X(:,i1)=A\b;
-    end
+end
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%% computer and draw pin forces
 F12 =sqrt(X(1,:).^2+X(2,:).^2);
 F32=sqrt(X(3,:).^2+X(4,:).^2);
 F43=sqrt(X(5,:).^2+X(6,:).^2);
 F14=sqrt(X(7,:).^2+(miu*X(7,:)).^2);
+
 %%% figures of pin forces
 figure (1)
 subplot(2,2,1)
@@ -87,6 +95,7 @@ plot(theta2,F14);grid;
 xlim([0 2*pi]);
 xlabel('theta 2 [rad]')
 ylabel('F14 [N]')
+
 % figure of input torque
 figure (2)
 plot(theta2, X(8,:)); grid;
