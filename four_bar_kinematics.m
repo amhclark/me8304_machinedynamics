@@ -53,7 +53,7 @@ end
 
 % velocity analysis: P273
 for i1=1:n
-    A1=[-r3*sin(theta3(i1)), r4*sin(theta4(i1));r3*cos(theta3(i1)), -r4*cos(theta4(i1))]
+    A1=[-r3*sin(theta3(i1)), r4*sin(theta4(i1));r3*cos(theta3(i1)), -r4*cos(theta4(i1))];
     b1=[r2*omega2*sin(theta2(i1)); -r2*omega2*cos(theta2(i1))];
     xx=A1\b1;
     omega3(i1)=xx(1);omega4(i1)=xx(2);
@@ -61,11 +61,9 @@ end
 
 % acceleration analysis :P310-311
 for i1=1:n
-    A1=[-r3*sin(theta3(i1)), r4*sin(theta4(i1));r3*cos(theta3(i1)), -r4*cos(theta4(i1))]
-    b1(1,1)=r2*alph2*sin(theta2(i1))+r2*omega2^2*cos(theta2(i1))+r3*omega3(i1)^2*cos(theta3)
-    -r4*omega4(i1)^2*cos(theta4(i1));
-    b1(2,1)=-r2*alph2*cos(theta2(i1))+r2*omega2^2*sin(theta2(i1))...
-    + r3*omega3(i1)^2*sin(theta3(i1))-r4*omega4(i1)^2*sin(theta4(i1));
+    A1 = [-r3*sin(theta3(i1)), r4*sin(theta4(i1));r3*cos(theta3(i1)), -r4*cos(theta4(i1))];
+    b1(1,1)=r2*alph2*sin(theta2(i1))+r2*omega2^2*cos(theta2(i1))+r3*omega3(i1)^2*cos(theta3(i1))-r4*omega4(i1)^2*cos(theta4(i1));
+    b1(2,1)=-r2*alph2*cos(theta2(i1))+r2*omega2^2*sin(theta2(i1)) + r3*omega3(i1)^2*sin(theta3(i1))-r4*omega4(i1)^2*sin(theta4(i1));
     xx=A1\b1;
     alph3(i1)=xx(1);alph4(i1)=xx(2);
 end
