@@ -1,6 +1,6 @@
 %DYNAMIC FORCE ANALYSIS OF SLIDER CRANK MECHANISM
 % based on the drawing on p539
-clear;
+clear
 load scdate
 
 % CGs in local frame
