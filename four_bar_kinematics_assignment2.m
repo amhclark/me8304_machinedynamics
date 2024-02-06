@@ -1,4 +1,4 @@
-% Adapted from provided code from Dr. Yang 
+% Adapted from provided code written by Dr. J. Yang 
 % Machine Dynamics - Memorial University
 
 % This code is to analyze kinematics of four bar linkage:
@@ -8,7 +8,7 @@ global r1 r2 r3 r4
 global theta2inst
 
 %% Given Data
-r1 = 5.5; r2 =2.0; r3 = 6.0; r4 = 3.0;  % length of the four bars (inches)
+r1 = 5.5; r2 = 2.0; r3 = 6.0; r4 = 3.0; % length of the four bars (inches)
 n = 361;                                % number of increments
 
 omega2 = 50;                            % rad/s
@@ -18,13 +18,13 @@ t = (linspace(0,T2,n))';                % discritize time
 theta2 = omega2 * t;
 
 %initialize omega3 and 4
-omega3 = zeros(n,1);omega4 = zeros(n,1);                % angular speed of bar 3 and 4
-alph3 = zeros(n,1);alph4 = zeros(n,1);                  % angular acceleration of bar 3 and 4
+omega3 = zeros(n,1); omega4 = zeros(n,1);               % angular speed of bar 3 and 4
+alph3 = zeros(n,1); alph4 = zeros(n,1);                 % angular acceleration of bar 3 and 4
 % theta30=acos((-r4^2+r3^2+(r1-r2)^2)/(2*r3*(r1-r2)));  % guess degree
 theta30 = 23 * pi / 180;
 theta40 = 108 * pi / 180;
 %theta40=pi-acos(((r1-r2)^2+r4^2-r3^2)/(2*r4*(r1-r2))) + 10*pi/180; % guess degree
-theta3 = zeros(n,1);theta4=zeros(n,1);
+theta3 = zeros(n,1); theta4 = zeros(n,1);
 theta3(1) = theta30;
 theta4(1) = theta40;
 
@@ -33,7 +33,7 @@ theta4(1) = theta40;
 for i1 = 1:n
     theta2inst = theta2(i1);
     % Move unknown coordinates to array x
-    if i1 == 1;
+    if i1 == 1
         x = [theta30; theta40];
         else
         x = [theta3(i1-1); theta4(i1-1)];
@@ -81,26 +81,26 @@ end
 %% Position Plot
 figure(1)
 thetaplot = plot(theta2,theta3,theta2,theta4 );
-xlabel('theta 2 [rad]');
-ylabel('theta 3 (theta4) [rad]');
+xlabel('\theta_2 [rad]');
+ylabel('\theta_3 (\theta_4) [rad]');
 hkids = get(gca,'child');
-legend('theta3','theta4');
+legend('\theta_3','\theta_4');
 grid on;
 
 %% Velocity Plot
 figure(2)
 plot(theta2,omega3/omega2,theta2,omega4/omega2 );
-xlabel('theta2 [rad]');
-ylabel('angular speed ratio');
-legend('omega3/omega2','omega4/omega2');
+xlabel('\theta_2 [rad]');
+ylabel('Angular Speed Ratio');
+legend('\omega_3/\omega_2','\omega_4/\omega_2');
 grid on;
 
 %% Acceleration Plot
 figure(3)
 plot(theta2,alph3,theta2,alph4);
-xlabel('theta2 [rad]');
-ylabel('alph3 (4) [rad/s^2]');
-legend('alph3','alph4');
+xlabel('\theta_2 [rad]');
+ylabel('\alpha_3 (4) [rad/s^2]');
+legend('\alpha_3','\alpha_4');
 grid on;
 
 %% Save Data
@@ -108,7 +108,6 @@ save fourbardate n t r1 r2 r3 r4 omega2 omega3 omega4 alph2 alph3 alph4 theta2 t
 
 
 %% Functions
-
 function f = constraints(x)
 % Evaluate the constraints
 global r1 r2 r3 r4
