@@ -64,14 +64,14 @@ for i1 = 1:n
     R14 = -rG4*exp((theta4(i1)+delt4)*(1j));
     R34 = R14+r4*exp(theta4(i1)*(1j));
 
-    A(3,1) = -imag(R12);A(3,2)=real(R12);A(3,3)=-imag(R32);A(3,4)=real(R32);
-    A(6,3) = imag(R23);A(6,4)=-real(R23);A(6,5)=-imag(R43);A(6,6)=real(R43);
-    A(9,5) = imag(R34);A(9,6)=-real(R34);A(9,7)=-imag(R14);A(9,8)=real(R14);
-    
-    b(1) = m2*real(aG2); b(2)=m2*imag(aG2);b(3)=I2*alph2;
-    b(4) = m3*real(aG3)-real(FP3); b(5)=m3*imag(aG3)-imag(FP3);
+    A(3,1) = -imag(R12); A(3,2) = real(R12); A(3,3) = -imag(R32); A(3,4) = real(R32);
+    A(6,3) = imag(R23); A(6,4) = -real(R23); A(6,5) = -imag(R43); A(6,6) = real(R43);
+    A(9,5) = imag(R34); A(9,6) = -real(R34); A(9,7) = -imag(R14); A(9,8) = real(R14);
+
+    b(1) = m2*real(aG2); b(2) = m2*imag(aG2); b(3) = I2*alph2;
+    b(4) = m3*real(aG3)-real(FP3); b(5) = m3*imag(aG3)-imag(FP3);
     b(6) = I3*alph3(i1)-real(RP3)*imag(FP3)+imag(RP3)*real(FP3)-T3;
-    b(7) = m4*real(aG4)-real(FP4); b(8)=m4*imag(aG4)-imag(FP4);
+    b(7) = m4*real(aG4)-real(FP4); b(8) = m4*imag(aG4)-imag(FP4);
     b(9) = I4*alph4(i1)-real(RP4)*imag(FP4)+imag(RP4)*real(FP4)-T4;
     X(:,i1) = A\b;
 end
@@ -84,25 +84,19 @@ thetas = atan2(Ys,Xs);
 
 %% Graphing
 
-figure (1) % JOINT FORCE
-
-subplot(2,2,1);plot(theta2, X(1,:), theta2, X(2,:)); grid on; title('Link 1'); xlabel('\theta_2'); ylabel('Force [N]'); 
-subplot(2,2,2);plot(theta2, X(3,:), theta2, X(4,:)); grid on; title('Link 2'); xlabel('\theta_2'); ylabel('Force [N]'); 
-subplot(2,2,3);plot(theta2, X(5,:), theta2, X(6,:)); grid on; title('Link 3'); xlabel('\theta_2'); ylabel('Force [N]'); 
-subplot(2,2,4);plot(theta2, X(7,:), theta2, X(8,:)); grid on; title('Link 4'); xlabel('\theta_2'); ylabel('Force [N]'); 
+figure (1)
+subplot(2,2,1); plot(theta2, X(1,:), theta2, X(2,:)); grid on; title('Link 1'); xlabel('\theta_2'); ylabel('Force [N]'); 
+subplot(2,2,2); plot(theta2, X(3,:), theta2, X(4,:)); grid on; title('Link 2'); xlabel('\theta_2'); ylabel('Force [N]'); 
+subplot(2,2,3); plot(theta2, X(5,:), theta2, X(6,:)); grid on; title('Link 3'); xlabel('\theta_2'); ylabel('Force [N]'); 
+subplot(2,2,4); plot(theta2, X(7,:), theta2, X(8,:)); grid on; title('Link 4'); xlabel('\theta_2'); ylabel('Force [N]'); 
 
 figure (2)
 plot(theta2, -X(9,:)); grid on; xlabel('\theta_2'); ylabel('T_{12}');
 
 figure(3)
-plot(theta2, Ms);grid on;
-xlabel('crank angle');
-ylabel('Shaking momemt')
-hold on
+plot(theta2, Ms); grid on; xlabel('crank angle'); ylabel('Shaking momemt')
 
 figure(4)
 subplot (2,1,1);polarplot(thetas,Fs)
 hold on
-subplot (2,1,2);plot(theta2,Fs)
-xlabel('\theta_2')
-ylabel('Shaking Force')
+subplot (2,1,2);plot(theta2,Fs); xlabel('\theta_2'); ylabel('Shaking Force')
