@@ -78,7 +78,6 @@ end
 
 
 Ms = r1*X(8,:);
-%Ms= r1*X(8,:)- I3*transpose(alph3) - I4*transpose(alph4); % shaking moment
 Fs = sqrt((X(1,:)+X(7,:)).^2 + (X(2,:)+X(8,:)).^2); % magnitude of shaking force
 Ys = -X(2,:)-X(8,:); Xs = -X(1,:)-X(7,:);
 thetas = atan2(Ys,Xs);
@@ -86,20 +85,24 @@ thetas = atan2(Ys,Xs);
 %% Graphing
 
 figure (1) % JOINT FORCE
-subplot(2,2,1);plot(theta2, X(1,:), theta2, X(2,:));grid on; xlabel('crank angle'); subplot(2,2,2);plot(theta2, X(3,:),theta2, X(4,:) );grid on;xlabel('crank angle'); subplot(2,2,3);plot(theta2, X(5,:),theta2, X(6,:) );grid on;xlabel('crank angle'); subplot(2,2,4);plot(theta2, X(7,:),theta2, X(8,:) );grid on;xlabel('crank angle'); 
+
+subplot(2,2,1);plot(theta2, X(1,:), theta2, X(2,:)); grid on; title('Link 1'); xlabel('\theta_2'); ylabel('Force [N]'); 
+subplot(2,2,2);plot(theta2, X(3,:), theta2, X(4,:)); grid on; title('Link 2'); xlabel('\theta_2'); ylabel('Force [N]'); 
+subplot(2,2,3);plot(theta2, X(5,:), theta2, X(6,:)); grid on; title('Link 3'); xlabel('\theta_2'); ylabel('Force [N]'); 
+subplot(2,2,4);plot(theta2, X(7,:), theta2, X(8,:)); grid on; title('Link 4'); xlabel('\theta_2'); ylabel('Force [N]'); 
 
 figure (2)
-plot(theta2, -X(9,:)); grid on; xlabel('crank angle'); ylabel('T12');
+plot(theta2, -X(9,:)); grid on; xlabel('\theta_2'); ylabel('T_{12}');
 
-figure(3) % shaking moment around O1, make external force and moment zero.
+figure(3)
 plot(theta2, Ms);grid on;
 xlabel('crank angle');
 ylabel('Shaking momemt')
 hold on
 
-figure(4) % shaking force, need make the external force and torque zero.
+figure(4)
 subplot (2,1,1);polarplot(thetas,Fs)
 hold on
 subplot (2,1,2);plot(theta2,Fs)
-xlabel('crank angle')
-ylabel('Shaking Force Magnitude')
+xlabel('\theta_2')
+ylabel('Shaking Force')
